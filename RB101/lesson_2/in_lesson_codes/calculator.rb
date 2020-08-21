@@ -10,10 +10,15 @@ def prompt(message)
 end
 
 def valid_number?(num)
-  only_number = num.to_i().to_s() == num
-  starts_with_0 = num.start_with?("0")
-  multi_digit = num.length > 1
-  only_number && ((!starts_with_0 )|| !multi_digit)
+  valid_float?(num) || valid_int?(num)
+end
+
+def valid_float?(num)
+  Float(num) rescue false
+end
+
+def valid_int?(num)
+  Integer(num) rescue false
 end
 
 def valid_operator?(operator)
