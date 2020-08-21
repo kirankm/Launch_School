@@ -31,7 +31,6 @@ loop do
 end
 prompt("Hi #{name}")
 
-number1 = 0
 loop do
   number1 = 0
   loop do
@@ -49,13 +48,13 @@ loop do
     puts "Hmm that doesn't look like a valid number"
   end
 
-operator = 0
-loop do
-  prompt("What's the opeation to perform? 1) add 2)subtract 3)multiply 4 divide")
-  operator = Kernel.gets().chomp()
-  break if is_valid_operator?(operator)
-  prompt("Please enter a valid operator from the given options")
-end
+  operator = 0
+  loop do
+    prompt("What's the opeation to perform? 1) add 2)subtract 3)multiply 4 divide")
+    operator = Kernel.gets().chomp()
+    break if is_valid_operator?(operator)
+    prompt("Please enter a valid operator from the given options")
+  end
 
   result = case operator 
             when "1"
@@ -75,4 +74,3 @@ end
   break unless response.downcase().start_with?("y")
 end
 
-prompt("The result is #{result}")
