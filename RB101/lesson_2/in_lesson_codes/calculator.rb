@@ -13,6 +13,11 @@ def is_valid_number(num)
   num.to_i().to_s() == num
 end
 
+def is_valid_operator?(operator)
+  valid_operators = [1,2,3,4]
+  valid_operators.include?(operator.to_i)
+end
+
 prompt("Welcome to Calculator! Enter Your Name:")
 name = ""
 
@@ -42,8 +47,13 @@ loop do
   puts "Hmm that doesn't look like a valid number"
 end
 
-prompt("What's the opeation to perform? 1) add 2)subtract 3)multiply 4 divide")
-operator = Kernel.gets().chomp()
+operator = 0
+loop do
+  prompt("What's the opeation to perform? 1) add 2)subtract 3)multiply 4 divide")
+  operator = Kernel.gets().chomp()
+  break if is_valid_operator?(operator)
+  prompt("Please enter a valid operator from the given options")
+end
 
 result = case operator 
           when "1"
