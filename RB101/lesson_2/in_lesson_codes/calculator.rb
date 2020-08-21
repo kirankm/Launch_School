@@ -5,6 +5,7 @@
   Output the result
 =end
 
+
 def prompt(message)
   Kernel.puts("=> #{message}")
 end
