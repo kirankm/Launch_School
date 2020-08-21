@@ -13,7 +13,19 @@ def is_valid_number(num)
   num.to_i().to_s() == num
 end
 
-prompt("Welcome to Calculator!")
+prompt("Welcome to Calculator! Enter Your Name:")
+name = ""
+
+loop do
+  name = Kernel.gets().chomp()
+  if name.empty?()
+    prompt("Make sure to enter a valid name")
+  else 
+    break
+  end
+end
+prompt("Hi #{name}")
+
 number1 = 0
 loop do
   prompt("What's the first number?")
