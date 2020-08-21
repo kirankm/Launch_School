@@ -9,7 +9,7 @@ def prompt(message)
   Kernel.puts("=> #{message}")
 end
 
-def is_valid_number(num)
+def is_valid_number?(num)
   num.to_i().to_s() == num
 end
 
@@ -30,7 +30,7 @@ number1 = 0
 loop do
   prompt("What's the first number?")
   number1 = Kernel.gets().chomp()
-  break if is_valid_number(number1)
+  break if is_valid_number?(number1)
   puts "Hmm that doesn't look like a valid number"
 end
 
@@ -38,7 +38,7 @@ number2 = 0
 loop do
   prompt("What's the second number?")
   number2 = Kernel.gets().chomp()
-  break if is_valid_number(number2)
+  break if is_valid_number?(number2)
   puts "Hmm that doesn't look like a valid number"
 end
 
