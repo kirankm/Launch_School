@@ -5,6 +5,11 @@
   Output the result
 =end
 
+require "yaml"
+
+LANGUAGE = "en"
+FULL_CONFIG = YAML.load(File.read("calc_config.yml"))
+CONFIG = FULL_CONFIG[LANGUAGE]
 
 def prompt(message)
   Kernel.puts("=> #{message}")
@@ -27,13 +32,13 @@ def valid_operator?(operator)
   valid_operators.include?(operator)
 end
 
-prompt("Welcome to Calculator! Enter Your Name:")
+prompt(CONFIG[:welcome])
 name = ""
 
 loop do
   name = Kernel.gets().chomp()
   if name.empty?()
-    prompt("Make sure to enter a valid name")
+    prompt(CONFIG[:valid_name])
   else
     break
   end
@@ -43,34 +48,27 @@ prompt("Hi #{name}")
 loop do
   number1 = 0
   loop do
-    prompt("What's the first number?")
+    prompt(CONFIG[:num1_prompt])
     number1 = Kernel.gets().chomp()
     break if valid_number?(number1)
-    puts "Hmm that doesn't look like a valid number"
+    prompt(CONFIG[:valid_number]) 
   end
 
   number2 = 0
   loop do
-    prompt("What's the second number?")
+    prompt(CONFIG[:num2_prompt])
     number2 = Kernel.gets().chomp()
     break if valid_number?(number2)
-    puts "Hmm that doesn't look like a valid number"
+    prompt(CONFIG[:valid_number]) 
   end
 
   operator = 0
-  operator_prompt = <<-PMT
-    What is the operation to perform
-    1) Addition
-    2) Subtraction
-    3) Multiplication
-    4) Division
-  PMT
 
   loop do
-    prompt(operator_prompt)
+    prompt(CONFIG[:operator_prompt])
     operator = Kernel.gets().chomp()
     break if valid_operator?(operator)
-    prompt("Please enter a valid operator from the given options")
+    prompt(CONFIG[:valid_operator]) 
   end
 
   result = case operator
@@ -85,8 +83,7 @@ loop do
            end
 
   prompt("The result is #{result}")
-
-  prompt("Hi #{name}, Type Y if you want to continue using the calculator")
+  prompt(CONFIG[:continue]) 
   response = Kernel.gets().chomp()
   break unless response.downcase().start_with?("y")
 end
