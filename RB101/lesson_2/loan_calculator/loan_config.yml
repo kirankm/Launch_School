@@ -1,22 +1,29 @@
 ---
 'en':
       :welcome: 'Welcome to Loan Calculator! Enter Your Name:'
+      :greet: Hi
+      :valid_name: Make sure to enter a valid name
+
       :loan_amount: What's the total loan amount?
+      :valid_loan_amt: Make sure to enter a valid loan amount
+
+      :loan_rate: What's the Annual Loan Interest Rate (Reply 5 for 5%) ?
+      :valid_loan_rate: Make sure to enter a valid loan rate
+
       :loan_years: What's the year component in the loan term (Reply 5 if Loan Term is 5 Years and 3 Months)?
       :loan_months: What's the month component in the loan term (Reply 3 if Loan Term is 5 Years and 3 Months)?
-      :loan_rate: What's the Annual loan interest rate (Type 5 for 5%) ?
-      :valid_name: Make sure to enter a valid name
-      :valid_loan_amt: Make sure to enter a valid loan amount
-      :valid_loan_rate: Make sure to enter a valid loan rate
       :valid_loan_years: Make sure to enter a valid integer for number of years
       :valid_loan_months: Make sure to enter a valid integer for number of months
+      :valid_loan_term: The total Loan Term cannot be 0 Years and 0 Months
+      
+      :separator: '########################################################################################'
+      :details: Your Loan details are given below
+      :amt: 'Loan Amount is:'
+      :rate: 'Loan Annual Interest Rate is:'
+      :term: 'Loan Term is:'
 
+      :installment: 'The Monthly Installment to be paid is:'
 
-      :operator_prompt: |2
-            What is the operation to perform
-            1) Addition
-            2) Subtraction
-            3) Multiplication
-            4) Division
-      :valid_operator: Please enter a valid operator from the given options
       :continue: Type Y if you want to continue using the calculator
+      :thanks: Thank you for using the Mortgage Calculator!
+      :bye: Good bye!
