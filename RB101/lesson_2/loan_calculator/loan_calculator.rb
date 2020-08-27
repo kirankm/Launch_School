@@ -29,19 +29,15 @@ def valid_name?(name)
 end
 
 def positive_float?(num)
-  begin
-    (num.to_f >= 0) and Float(num)
-  rescue ArgumentError
-    false
-  end
+  (num.to_f >= 0) and Float(num)
+rescue ArgumentError
+  false
 end
 
 def positive_int?(num)
-  begin
-    (num.to_i >= 0) and Integer(num)
-  rescue ArgumentError
-    false
-  end
+  (num.to_i >= 0) and Integer(num)
+rescue ArgumentError
+  false
 end
 
 def monthly_pay(amount, months, rate)
