@@ -2,12 +2,16 @@
 'en':
       :welcome: 'Welcome to Loan Calculator! Enter Your Name:'
       :loan_amount: What's the total loan amount?
-      :loan_duration: What's the total loan duration (in Years)?
-      :loan_rate: What's the total loan interest rate (Annual)?
+      :loan_years: What's the year component in the loan term (Reply 5 if Loan Term is 5 Years and 3 Months)?
+      :loan_months: What's the month component in the loan term (Reply 3 if Loan Term is 5 Years and 3 Months)?
+      :loan_rate: What's the Annual loan interest rate (Type 5 for 5%) ?
       :valid_name: Make sure to enter a valid name
       :valid_loan_amt: Make sure to enter a valid loan amount
-      :valid_loan_dur: Make sure to enter a valid loan duration
       :valid_loan_rate: Make sure to enter a valid loan rate
+      :valid_loan_years: Make sure to enter a valid integer for number of years
+      :valid_loan_months: Make sure to enter a valid integer for number of months
+
+
       :operator_prompt: |2
             What is the operation to perform
             1) Addition
