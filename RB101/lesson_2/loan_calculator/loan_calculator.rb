@@ -156,14 +156,15 @@ end
 def get_continue_answer
   prompt(get_message(:continue))
   response = gets.chomp[0].downcase
-  while !["yes","y","no","n"].include? response
+  while !["yes","y","no","n"].include? response.downcase
     prompt(get_message(:continue))
-    response = gets.chomp[0].downcase
+    response = gets.chomp[0]
   end
   response
 end
 
 def play_again?(response)
+  response.downcase!
   response == "y" || response == "yes"
 end
 
