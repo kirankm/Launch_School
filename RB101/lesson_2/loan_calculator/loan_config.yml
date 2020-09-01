@@ -1,6 +1,7 @@
 ---
 'en':
-      :welcome: 'Welcome to Loan Calculator! Enter Your Name:'
+      :welcome: 'Welcome to Loan Calculator!'
+      :get_name: Enter Your Name
       :greet: Hi
       :valid_name: Make sure to enter a valid name
 
@@ -24,6 +25,6 @@
 
       :installment: 'The Monthly Installment to be paid is:'
 
-      :continue: Type Y if you want to continue using the calculator
+      :continue: Type y/yes to Continue or n/no to cancel
       :thanks: Thank you for using the Mortgage Calculator!
       :bye: Good bye!
