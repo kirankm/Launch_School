@@ -1,4 +1,4 @@
-############################################## Helper Functions ##################################################################
+############################ Helper Functions ##########################
 require "yaml"
 require "pry"
 require "pry-byebug"
@@ -16,13 +16,12 @@ def update_score(player, computer, score, game_msg)
     prompt "It's a tie"
   end
   prompt "The current score is"
-  prompt "#{pp_score(score)}"
+  prompt pp_score(score)
 end
 
 def pp_score(score)
-  score.to_a.map {|x| x.join(" => ")}.join (" | ")
+  score.to_a.map { |x| x.join(" => ") }.join(" | ")
 end
-
 
 def win?(first, second)
   WIN_HASH[first].include? second
@@ -62,7 +61,7 @@ def return_game_message(winner, loser, game_msg)
   prompt out[0]
 end
 
-############################################################ Main Functions #################################################################
+################################ Main Functions ################################
 def clear_screen
   system("clear") || system("cls")
 end
@@ -95,12 +94,12 @@ def get_player_choice
   player_choice = "rock"
 
   loop do
-    prompt(get_message(:player_choice), "#{VALID_OPTIONS.join(', ')}")
+    prompt(get_message(:player_choice), VALID_OPTIONS.join(', '))
     player_choice = Kernel.gets().chomp()
     player_choice = SHORT_FORM[player_choice] if SHORT_FORM[player_choice]
 
     break if VALID_OPTIONS.include? player_choice.downcase
-    prompt(get_message(:valid_choice), "#{VALID_OPTIONS.join(' or ')}")
+    prompt(get_message(:valid_choice), VALID_OPTIONS.join(' or '))
   end
   player_choice.downcase
 end
@@ -117,7 +116,7 @@ end
 def get_continue_answer
   prompt(get_message(:continue))
   response = gets.chomp[0].downcase
-  while !["yes","y","no","n"].include? response.downcase
+  while !["yes", "y", "no", "n"].include? response.downcase
     prompt(get_message(:continue))
     response = gets.chomp[0]
   end
@@ -132,31 +131,30 @@ end
 def display_bye(score, name)
   current_winner = current_leader(score, name)
   if grand_winner?(score)
-    prompt(get_message(:grand_winner), current_winner) 
+    prompt(get_message(:grand_winner), current_winner)
   else
     sendoff = case current_winner
-    when name.upcase
-      get_message(:winner)
-    when "COMPUTER"
-      get_message(:loser)
-    when "TIE"
-      get_message(:tie)
-    end
+              when name.upcase
+                get_message(:winner)
+              when "COMPUTER"
+                get_message(:loser)
+              when "TIE"
+                get_message(:tie)
+              end
     prompt(sendoff, name.capitalize)
   end
 
-  prompt(get_message(:thanks), "#{VALID_OPTIONS.join(' ').upcase}")
+  prompt(get_message(:thanks), VALID_OPTIONS.join(' ').upcase)
 end
 
 def grand_winner?(score)
   score.values.max >= WINNER_CUTOFF
 end
 
-############################################## Constants ##################################################################
+############################# Constants #################################
 VALID_OPTIONS = %w(rock paper scissors lizard spock)
 LANGUAGE = "en"
 CONFIG = YAML.load(File.read("rps_config.yml"))
-
 
 SHORT_FORM = { "s" => "scissors",
                "p" => "paper",
@@ -172,12 +170,12 @@ WIN_HASH = { "spock" => ["rock", "scissors"],
 
 WINNER_CUTOFF = 5
 
-##################################################### Main Code ##################################################################
+########################### Main Code #####################################
 clear_screen()
 
 display_welcome()
 name = get_name
-game_msg = get_message(:game_message).split(".").map {|x| x.downcase}
+game_msg = get_message(:game_message).split(".").map(&:downcase)
 
 score = initialize
 
@@ -193,4 +191,3 @@ loop do
 end
 
 display_bye(score, name)
-
