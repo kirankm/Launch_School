@@ -3,20 +3,18 @@ require "yaml"
 require "pry"
 require "pry-byebug"
 
-def update_score(player, computer, score, game_msg)
+def calculate_winner(player, computer)
   if win?(player, computer)
-    score["player"] += 1
-    return_game_message(player, computer, game_msg)
-    prompt "Player Won"
+    "player"
   elsif win?(computer, player)
-    score["computer"] += 1
-    return_game_message(computer, player, game_msg)
-    prompt "Computer Won"
+    "computer"
   else
-    prompt "It's a tie"
+    "tie"
   end
-  prompt "The current score is"
-  prompt pp_score(score)
+end
+
+def update_score(score, winner)
+  score[winner] += 1 if score.key? winner
 end
 
 def pp_score(score)
@@ -53,7 +51,7 @@ def current_leader(score, name)
   end
 end
 
-def return_game_message(winner, loser, game_msg)
+def display_game_message(winner, loser, game_msg)
   out = game_msg.select do |sub_msg|
     msg = sub_msg.split(" ")
     msg[0] == winner && msg[-1] == loser
@@ -108,9 +106,18 @@ def get_computer_choice
   VALID_OPTIONS.sample
 end
 
-def display_result(player_choice, computer_choice, score, game_msg)
+def display_result(player_choice, computer_choice, winner, game_msg, score)
   prompt "You chose: #{player_choice}; computer chose: #{computer_choice}"
-  update_score(player_choice, computer_choice, score, game_msg)
+  if winner == "computer"
+    display_game_message(computer_choice, player_choice, game_msg)
+    prompt("#{winner} won")
+  elsif winner == "player"
+    display_game_message(player_choice, computer_choice, game_msg)
+    prompt("#{winner} won")
+  else
+    prompt "it's a tie"
+  end
+  prompt pp_score(score)
 end
 
 def get_continue_answer
@@ -184,7 +191,9 @@ loop do
   player_choice = get_player_choice
   computer_choice = get_computer_choice
 
-  display_result(player_choice, computer_choice, score, game_msg)
+  winner = calculate_winner(player_choice, computer_choice)
+  update_score(score, winner)
+  display_result(player_choice, computer_choice, winner, game_msg, score)
 
   break if grand_winner?(score)
   response = get_continue_answer
