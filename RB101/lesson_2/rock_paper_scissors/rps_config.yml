@@ -1,0 +1,18 @@
+---
+'en':
+      :welcome: 'Welcome to ROCK PAPER SCISSORS LIZARD SPOCK!'
+      :get_name: Enter Your Name
+      :greet: Hi
+      :valid_name: Make sure to enter a valid name
+
+      :player_choice: "choose one:"
+      :valid_choice: "Please enter one option in"
+
+      :grand_winner: "All hail the Grand Winner, "
+      :winner: "Smart move quitting while ahead, "
+      :loser: "I hope you have better luck next time, "
+      :tie: "You have met your match, "
+      :game_message: "Scissors cut paper. Paper covers rock. Rock crushes lizard. Lizard poisons Spock. Spock smashes scissors. Scissors decapitate lizard. Lizard eats paper. Paper disproves Spock. Spock vaporizes rock. Rock crushes scissors."
+
+      :continue: Type y/yes to Continue or n/no to cancel
+      :thanks: Come Back Again For Another Exciting Game Of
