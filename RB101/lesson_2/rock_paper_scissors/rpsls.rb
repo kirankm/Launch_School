@@ -114,6 +114,7 @@ def display_result(player_choice, computer_choice, score, game_msg)
 end
 
 def get_continue_answer
+  prompt(get_message(:winner_cutoff), WINNER_CUTOFF)
   prompt(get_message(:continue))
   response = gets.chomp[0].downcase
   while !["yes", "y", "no", "n"].include? response.downcase

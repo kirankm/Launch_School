@@ -13,6 +13,6 @@
       :loser: "I hope you have better luck next time, "
       :tie: "You have met your match, "
       :game_message: "Scissors cut paper. Paper covers rock. Rock crushes lizard. Lizard poisons Spock. Spock smashes scissors. Scissors decapitate lizard. Lizard eats paper. Paper disproves Spock. Spock vaporizes rock. Rock crushes scissors."
-
+      :winner_cutoff: "No of games required to be named Grand Winner:"
       :continue: Type y/yes to Continue or n/no to cancel
       :thanks: Come Back Again For Another Exciting Game Of
