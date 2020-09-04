@@ -1,7 +1,5 @@
 ############################ Helper Functions ##########################
 require "yaml"
-require "pry"
-require "pry-byebug"
 
 def calculate_winner(player, computer)
   if win?(player, computer)
