@@ -1,0 +1,45 @@
+---
+'en':
+      :welcome: 'Welcome to another exciting game of TIC TAC TOE'
+      :get_name: Enter Your Name
+      :valid_name: Make sure to enter a valid name
+      :greet: Hi
+      :choose_option: |
+            Choose One of the Following Options
+            1) New Game
+            2) Settings
+            3) Shortcut Keys
+      :valid_option: Make sure to enter a valid option from 1,2 or 3
+
+      :user_move: "Choose the Square you want to mark from "
+      :invalid_out_of_bounds: "You have entered an invalid value"
+      :invalid_already_chosen: "Please choose an empty Square"
+
+      :move_made: "has marked square"
+      :continue: Type y/yes to Continue or n/no to exit the game
+      :separator: "###################################################################################"
+
+      :grand_winner: "All hail the Grand Winner, "
+      :winner: "Smart move quitting while ahead, "
+      :loser: "I hope you have better luck next time, "
+      :tie: "You have met your match, "
+      :winner_cutoff: "Number of games required to be named Grand Winner:"
+      :continue: Type y/yes to Continue or n/no to exit the game
+      :thanks: Come Back Again For Another Exciting Game Of TIC TAC TOE
+
+      :settings_welcome: |
+            Which setting do you want to change
+            Type the setting number or setting name to make your selection
+      :valid_setting: "Invalid setting please try again"
+      :chosen_setting: "You have chosen"
+
+      :row_separator_help: "Change the Row Separator for the boards (Single Character, Not Blank)"
+      :col_separator_help: "Change the Column Separator for the boards (Single Character, Not Blank)"
+      :intersection_marker_help: "Change the marker for intersections of row and column (Single Character)"
+      :row_height_help: "Change the height of each row (Odd Integer)"
+      :col_width_help: "Change the width of each col (Odd Integer)"
+      
+      :update_setting: "Please enter the new value you want to use for "
+      
+      :valid_marker: "Invalid value. Markers should be a single character string. Please Try Again"
+      :duplicate_marker: " is already assigned to another marker. Please enter a different value"
