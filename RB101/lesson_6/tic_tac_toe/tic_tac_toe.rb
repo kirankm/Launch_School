@@ -1,6 +1,8 @@
 require "yaml"
 require "pry"
 require "pry-byebug"
+
+# rubocop:disable Security/YAMLLoad
 ############################# Constants #################################
 LANGUAGE = "en"
 CONFIG_MSG = YAML.load(File.read("ttt_config.yml"))
@@ -122,6 +124,7 @@ def show_score(input, score)
 end
 
 ############################## Getting Input From User ##################
+# rubocop:disable Metrics/AbcSize, Metrics/MethodLength
 def get_object_from_user(input_msg, valid_fun = nil,
                          valid_message = nil, listeners = nil)
   valid_fun, valid_message, listeners =
@@ -142,6 +145,7 @@ def get_object_from_user(input_msg, valid_fun = nil,
   end
   !listener_response ? return_val : listener_response
 end
+# rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
 def get_listen_and_validity_response(return_val, listeners, valid_fun)
   listener_response = check_for_listener(return_val, listeners)
@@ -902,6 +906,4 @@ until quit_game
     print_shortcut
   end
 end
-
-## Disable failing rubocop
-## Change all values to default
+# rubocop:enable Security/YAMLLoad
