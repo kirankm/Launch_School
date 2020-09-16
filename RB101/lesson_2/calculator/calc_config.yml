@@ -5,7 +5,7 @@
       :num2_prompt: What's the second number?
       :valid_name: Make sure to enter a valid name
       :valid_number: Hmm that doesn't look like a valid number
-      :operator_prompt: |2
+      :operator_prompt: |
             What is the operation to perform
             1) Addition
             2) Subtraction
