@@ -85,4 +85,7 @@
       "c_help": Clear the screen
 
       :shortcut_msg: "Type Q to quit"
+      :shortcut_intro: |
+            Shortcut keys usable at various game prompts
+            WARNING (Availability depends on the context)
 

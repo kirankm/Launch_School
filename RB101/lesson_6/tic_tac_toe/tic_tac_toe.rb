@@ -16,7 +16,7 @@ def clear_screen
   system("clear") || system("cls")
 end
 
-def message(msg, lang = "en")
+def show_message(msg, lang = "en")
   CONFIG_MSG[lang][msg]
 end
 
@@ -31,7 +31,7 @@ def joinor(arr, sep = ", ", connector = "or")
   out_arr.join(sep)
 end
 
-def current_leader(score)
+def get_current_leader(score)
   if score[NAME] > score["computer"]
     NAME.upcase
   elsif score[NAME] == score["computer"]
@@ -71,8 +71,8 @@ end
 
 def quit_with_confirm(input, _msg = nil)
   if input == "q"
-    input_msg = message(:quit)
-    return_val = object_from_user(input_msg)
+    input_msg = show_message(:quit)
+    return_val = get_object_from_user(input_msg)
     return_val.downcase == "y" || return_val.downcase == "yes"
   end
 end
@@ -122,8 +122,8 @@ def show_score(input, score)
 end
 
 ############################## Getting Input From User ##################
-def object_from_user(input_msg, valid_fun = nil,
-                     valid_message = nil, listeners = nil)
+def get_object_from_user(input_msg, valid_fun = nil,
+                         valid_message = nil, listeners = nil)
   valid_fun, valid_message, listeners =
     conv_2_array(valid_fun, valid_message, listeners)
   return_val = get_user_response(input_msg)
@@ -199,18 +199,18 @@ def start_game
 end
 
 def user_name
-  name_input_msg = message(:get_name)
-  name_invalid_msg = message(:valid_name)
-  object_from_user(name_input_msg, :valid_name?, name_invalid_msg)
+  name_input_msg = show_message(:get_name)
+  name_invalid_msg = show_message(:valid_name)
+  get_object_from_user(name_input_msg, :valid_name?, name_invalid_msg)
 end
 
 ### Initializing
 def display_welcome
-  prompt(message(:welcome))
+  prompt(show_message(:welcome))
 end
 
 def greet
-  prompt(message(:greet), NAME.capitalize)
+  prompt(show_message(:greet), NAME.capitalize)
 end
 
 def valid_option?(value, _ = nil)
@@ -220,11 +220,11 @@ end
 def option_from_user
   clear_screen
   greet
-  option_input_msg = message(:choose_option)
-  option_invalid_msg = message(:valid_option)
-  listeners = [[:clear], [:quit, message(:thanks)]]
-  object_from_user(option_input_msg, :valid_option?, option_invalid_msg,
-                   listeners)
+  option_input_msg = show_message(:choose_option)
+  option_invalid_msg = show_message(:valid_option)
+  listeners = [[:clear], [:quit, show_message(:thanks)]]
+  get_object_from_user(option_input_msg, :valid_option?, option_invalid_msg,
+                       listeners)
 end
 
 def user_menu_choice
@@ -349,16 +349,16 @@ def get_empty_squares(board, marker)
   empty_squares
 end
 
-def user_move(empty_squares, game_parameters, score)
-  input_msg = message(:user_move) + joinor(empty_squares)
-  valid_msg = [message(:invalid_not_integer),
-               message(:invalid_out_of_bounds),
-               message(:invalid_already_chosen)]
+def get_user_move(empty_squares, game_parameters, score)
+  input_msg = show_message(:user_move) + joinor(empty_squares)
+  valid_msg = [show_message(:invalid_not_integer),
+               show_message(:invalid_out_of_bounds),
+               show_message(:invalid_already_chosen)]
   valid_fun = [[:valid_integer?], [:valid_square?],
                [:empty_square?, [empty_squares]]]
   listeners = [[:clear], [:show_game_params, game_parameters],
                [:show_score, score], [:quit_with_confirm], [:help]]
-  object_from_user(input_msg, valid_fun, valid_msg, listeners)
+  get_object_from_user(input_msg, valid_fun, valid_msg, listeners)
 end
 
 def valid_integer?(num)
@@ -390,7 +390,7 @@ def current_action(current_player, board, game_parameters,
   empty_squares = get_empty_squares(board, marker)
   quit_to_menu = false
   if current_player == NAME
-    user_move = user_move(empty_squares, game_parameters, score)
+    user_move = get_user_move(empty_squares, game_parameters, score)
     if user_move == true
       quit_to_menu = true
       user_move = nil
@@ -480,27 +480,12 @@ def get_computer_move_hell(board, empty_squares, marker)
 end
 
 ####### Min Max #########
-def find_immediate_best_move(board, current_player, empty_squares, marker)
-  winning_squares = find_winning_square(board, empty_squares, current_player,
-                                        marker)
-  return winning_squares.sample if !winning_squares.empty?
-  return empty_squares.sample if empty_squares.length == 1
-  risky_squares = find_risky_square(board, empty_squares, current_player,
-                                    marker)
-  return risky_squares.sample if !risky_squares.empty?
-  nil
-end
-
 def get_highest_score_move(move_score_hash)
   highest_score = move_score_hash.values.max
   move_score_hash.select { |_, value| value == highest_score }.keys.sample
 end
 
 def find_best_move(board, empty_squares, current_player, marker)
-  immediate_best_move = find_immediate_best_move(board, current_player,
-                                                 empty_squares, marker)
-  return immediate_best_move unless immediate_best_move.nil?
-
   move_score_hash = {}
   empty_squares.each do |square|
     temp_board = board.map(&:clone)
@@ -558,7 +543,7 @@ def next_player(current_player)
 end
 
 def display_current_move(current_player, current_move)
-  prompt(current_player, message(:move_made), current_move)
+  prompt(current_player, show_message(:move_made), current_move)
 end
 
 def update_score(score, winner)
@@ -582,26 +567,26 @@ end
 
 def get_continue_answer(game_parameters, score)
   print_blank
-  prompt(message(:winner_cutoff), game_parameters[:winner_cutoff].to_s)
-  input_msg = message(:continue)
-  valid_fun = :check_yes
+  prompt(show_message(:winner_cutoff), game_parameters[:winner_cutoff].to_s)
+  input_msg = show_message(:continue)
+  valid_fun = :valid_reponse?
   listeners = [[:clear], [:show_game_params, game_parameters],
                [:show_score, score]]
-  object_from_user(input_msg, valid_fun, input_msg, listeners)
+  get_object_from_user(input_msg, valid_fun, input_msg, listeners)
 end
 
 def get_continue_answer_grand_winner(game_parameters, score)
-  current_winner = current_leader(score)
-  prompt(message(:grand_winner), current_winner.upcase)
+  current_winner = get_current_leader(score)
+  prompt(show_message(:grand_winner), current_winner.upcase)
   print_blank
-  input_msg = message(:continue_grand_winner)
-  valid_fun = :check_yes
+  input_msg = show_message(:continue_grand_winner)
+  valid_fun = :valid_reponse?
   listeners = [[:clear], [:show_game_params, game_parameters],
                [:show_score, score]]
-  object_from_user(input_msg, valid_fun, input_msg, listeners)
+  get_object_from_user(input_msg, valid_fun, input_msg, listeners)
 end
 
-def continue_from_user(score, game_parameters, quit_to_menu)
+def get_continue_from_user(score, game_parameters, quit_to_menu)
   return [score, quit_to_menu] if quit_to_menu
   print_blank
   if grand_winner?(score, game_parameters)
@@ -614,7 +599,7 @@ def continue_from_user(score, game_parameters, quit_to_menu)
   [score, quit_to_menu]
 end
 
-def check_yes(response)
+def valid_reponse?(response)
   ["yes", "y", "no", "n"].include? response.downcase
 end
 
@@ -624,12 +609,12 @@ def play_again?(response)
 end
 
 def display_bye(score, game_parameters)
-  current_winner = current_leader(score)
+  current_winner = get_current_leader(score)
   if grand_winner?(score, game_parameters)
     if current_winner == NAME.upcase
-      prompt(message(:thanks_game_win), NAME.capitalize)
+      prompt(show_message(:thanks_game_win), NAME.capitalize)
     else
-      prompt(message(:thanks_game_loss), NAME.capitalize)
+      prompt(show_message(:thanks_game_loss), NAME.capitalize)
     end
   else
     show_sendoff(current_winner)
@@ -640,11 +625,11 @@ end
 def show_sendoff(current_winner)
   sendoff = case current_winner
             when NAME.upcase
-              message(:winner)
+              show_message(:winner)
             when "COMPUTER"
-              message(:loser)
+              show_message(:loser)
             when "TIE"
-              message(:tie)
+              show_message(:tie)
             end
   prompt(sendoff, NAME.capitalize)
 end
@@ -679,9 +664,9 @@ end
 
 ############################# Settings ##############################
 def pp_settings(settings)
-  out_message_arr = [message(:settings_welcome)]
+  out_message_arr = [show_message(:settings_welcome)]
   out_message_arr << stringify_setting(settings)
-  out_message_arr << message(:settings_other_options)
+  out_message_arr << show_message(:settings_other_options)
   out_message_arr.join("\n")
 end
 
@@ -705,13 +690,13 @@ end
 def setting_from_user(settings)
   clear_screen
   input_msg = pp_settings(settings)
-  valid_msg = message(:valid_setting)
+  valid_msg = show_message(:valid_setting)
   listeners = [[:save_setting, settings], [:cancel_selection], [:clear]]
   valid_fun = [:valid_setting?, [settings]]
-  choice = object_from_user(input_msg, valid_fun, valid_msg, listeners)
+  choice = get_object_from_user(input_msg, valid_fun, valid_msg, listeners)
   return choice if choice == true
   choice = choice.to_i == 0 ? choice.to_sym : settings.keys[choice.to_i - 1]
-  prompt(message(:chosen_setting), choice.upcase)
+  prompt(show_message(:chosen_setting), choice.upcase)
   choice
 end
 
@@ -725,17 +710,17 @@ def load_config
   YAML.load(File.read(CONFIG_OPT_PATH))
 end
 
-def help_message(setting)
+def help_show_message(setting)
   msg_key = setting.to_s + "_help"
-  message(msg_key.to_sym)
+  show_message(msg_key.to_sym)
 end
 
 def updated_setting_value(current_settings, setting_to_update)
   clear_screen
-  prompt help_message(setting_to_update)
+  prompt help_show_message(setting_to_update)
   get_func = "get_#{setting_to_update}".to_sym
   listeners = [[:cancel_selection], [:clear],
-               [:help, help_message(setting_to_update)],
+               [:help, help_show_message(setting_to_update)],
                [:show_settings, current_settings]]
   method(get_func).call(current_settings, setting_to_update, listeners)
 end
@@ -754,10 +739,10 @@ end
 ################################ Individual Settings Code #############
 ####### Option with preset choices
 def get_choice(_current_settings, setting_to_update, listeners, choices)
-  input_msg = message(:update_setting) + setting_to_update.to_s
-  valid_msg = message(:valid_choice) + joinor(choices)
+  input_msg = show_message(:update_setting) + setting_to_update.to_s
+  valid_msg = show_message(:valid_choice) + joinor(choices)
   valid_fun = [[:valid_choice?, [choices]]]
-  object_from_user(input_msg, valid_fun, valid_msg, listeners)
+  get_object_from_user(input_msg, valid_fun, valid_msg, listeners)
 end
 
 def get_difficulty(current_settings, setting_to_update, listeners)
@@ -781,10 +766,10 @@ end
 
 ################ Numerical Setting #####################
 def get_dim(_current_settings, setting_to_update, listeners)
-  input_msg = message(:update_setting) + setting_to_update.to_s
-  valid_msg = message(:valid_dim)
+  input_msg = show_message(:update_setting) + setting_to_update.to_s
+  valid_msg = show_message(:valid_dim)
   valid_fun = :pos_odd?
-  return_val = object_from_user(input_msg, valid_fun, valid_msg, listeners)
+  return_val = get_object_from_user(input_msg, valid_fun, valid_msg, listeners)
   return return_val.to_i if return_val != true
   return_val
 end
@@ -802,10 +787,10 @@ def pos_odd?(num)
 end
 
 def get_winner_cutoff(_current_settings, setting_to_update, listeners)
-  input_msg = message(:update_setting) + setting_to_update.to_s
-  valid_msg = message(:valid_cutoff)
+  input_msg = show_message(:update_setting) + setting_to_update.to_s
+  valid_msg = show_message(:valid_cutoff)
   valid_fun = :pos?
-  return_val = object_from_user(input_msg, valid_fun, valid_msg, listeners)
+  return_val = get_object_from_user(input_msg, valid_fun, valid_msg, listeners)
   return return_val.to_i if return_val != true
   return_val
 end
@@ -816,13 +801,13 @@ end
 
 ############### Markers#####################
 def get_board_marker(current_settings, setting_to_update, listeners)
-  input_msg = message(:update_setting) + setting_to_update.to_s
-  marker_invalid_msg = message(:valid_marker)
-  marker_dup_msg = message(:duplicate_marker)
+  input_msg = show_message(:update_setting) + setting_to_update.to_s
+  marker_invalid_msg = show_message(:valid_marker)
+  marker_dup_msg = show_message(:duplicate_marker)
   valid_msg = [marker_invalid_msg, marker_dup_msg]
   valid_fun = [[:valid_separator?],
                [:unique_value?, [current_settings, setting_to_update]]]
-  object_from_user(input_msg, valid_fun, valid_msg, listeners)
+  get_object_from_user(input_msg, valid_fun, valid_msg, listeners)
 end
 
 def get_row_separator(current_settings, setting_to_update, listeners)
@@ -860,16 +845,18 @@ end
 
 ############################# Codes for Shortcut keys################
 def print_shortcut(get_feedback = true)
-  SHORTCUTS.each { |key| prompt "#{key} => #{message(key + '_help')}" }
+  prompt show_message(:shortcut_intro)
+  print_blank
+  SHORTCUTS.each { |key| prompt "#{key} => #{show_message(key + '_help')}" }
   user_response if get_feedback
 end
 
 def user_response
-  input_msg = message(:shortcut_msg)
-  valid_msg = message(:shortcut_msg)
+  input_msg = show_message(:shortcut_msg)
+  valid_msg = show_message(:shortcut_msg)
   listeners = [[:clear], [:quit]]
   valid_fun = :always_invalid
-  object_from_user(input_msg, valid_fun, valid_msg, listeners)
+  get_object_from_user(input_msg, valid_fun, valid_msg, listeners)
 end
 
 def always_invalid(_)
@@ -898,8 +885,8 @@ until quit_game
         end
       end
       update_match_result(score, winner, quit_to_menu)
-      score, quit_to_menu = continue_from_user(score, game_parameters,
-                                               quit_to_menu)
+      score, quit_to_menu = get_continue_from_user(score, game_parameters,
+                                                   quit_to_menu)
     end
     display_bye(score, game_parameters)
 
@@ -915,3 +902,6 @@ until quit_game
     print_shortcut
   end
 end
+
+## Disable failing rubocop
+## Change all values to default
