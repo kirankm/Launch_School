@@ -121,10 +121,10 @@ end
 def get_continue_answer
   prompt(get_message(:winner_cutoff), WINNER_CUTOFF)
   prompt(get_message(:continue))
-  response = gets.chomp[0].downcase
+  response = gets.chomp.downcase
   while !["yes", "y", "no", "n"].include? response.downcase
     prompt(get_message(:continue))
-    response = gets.chomp[0]
+    response = gets.chomp
   end
   response
 end
