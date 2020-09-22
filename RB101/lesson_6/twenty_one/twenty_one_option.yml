@@ -1,7 +1,0 @@
----
-:max_points: 21
-:max_points_range: [2, 100]
-:min_points_dealer: 17
-:min_points_dealer_range: [2, 100]
-:winner_cutoff: 5
-:winner_cutoff_range: [1, 100]
