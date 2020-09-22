@@ -3,8 +3,8 @@ require "yaml"
 # rubocop:disable Security/YAMLLoad
 ############################# Constants #################################
 LANGUAGE = "en"
-CONFIG_MSG = YAML.load(File.read("twenty_one_config.yml"))
-CONFIG_OPT = YAML.load(File.read("twenty_one_option.yml"))
+CONFIG_MSG = YAML.load(File.read("whatever_one_config.yml"))
+CONFIG_OPT = YAML.load(File.read("whatever_one_option.yml"))
 
 # rubocop:enable Security/YAMLLoad
 ############################ Helper Functions ##########################
