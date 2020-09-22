@@ -242,8 +242,7 @@ def player_stays(player)
   set_state!(player, "stayed")
 end
 
-def update_player_state!(player, game)
-  player_stays(player) if max_points?(player, game)
+def update_player_score!(player, game)
   if player_above_threshold?(player, game[:max_points])
     update_player_points!(player, game)
     player_busts(player) if player_above_threshold?(player, game[:max_points])
@@ -426,7 +425,8 @@ end
 
 def display_updated_result(user, dealer, game)
   print_blank
-  winner = get_winner(user, dealer)[:name]
+  winner = get_winner(user, dealer)
+  winner = winner[:name] if winner
   update_winner(game, winner) if winner
   prompt winner.nil? ? "It's a Tie" : "#{winner} wins"
   display_score(game)
@@ -445,12 +445,16 @@ end
 def user_turn(user, dealer, deck, game)
   while player_active?(user)
     diplay_visible_card_info(user, dealer)
-    user_action_response = stay_or_hit?
-    if stay? user_action_response
+    if max_points?(user, game)
       player_stays(user)
     else
-      deal_card_to_player(user, deck, game, true)
-      update_player_state!(user, game)
+      user_action_response = stay_or_hit?
+      if stay? user_action_response
+        player_stays(user)
+      else
+        deal_card_to_player(user, deck, game, true)
+        update_player_score!(user, game)
+      end
     end
   end
 end
@@ -466,7 +470,7 @@ def dealer_turn(dealer, user, deck, game)
       player_stays(dealer)
     else
       deal_card_to_player(dealer, deck, game, true)
-      update_player_state!(dealer, game)
+      update_player_score!(dealer, game)
     end
   end
 end
