@@ -1,0 +1,25 @@
+---
+'en':
+      :welcome: |
+            Welcome to another exciting game of Whatever One
+                                                           
+      :get_name: Hi. Enter Your Name
+      :valid_name: Make sure to enter a valid name
+      :winner_cutoff: "Number of wins required to be named Grand Winner:"
+      :continue: Type y/yes to Continue or n/no to exit the game
+      :continue_grand_winner: |
+            Would you like to start a new game?
+            Type y/yes to Restart or n/no to exit the game
+      :grand_winner: All hail the Grand Winner, 
+      :user_action: "Would you like to: hit or stay?"
+      :user_action_valid: "Type s/stay for Stay or h/hit for Hit"
+      :change_settings_intro: Do you want to change the Default Settings
+      :change_settings_repeat: Type y/yes to Change or n/no to Continue with Default Settings
+      :winner_cutoff_help: "This is the number of wins to be declared Grand Winner (Pos Integer between 0 and 100)"
+      :min_points_dealer_help: "This is the score until which the dealer has to continue hitting (Pos Integer between 2 and 100)"
+      :max_points_help: "This is the score beyond which the player will bust (Pos Integer between 2 and 100)"
+      :thanks: Thanks for playing Whatever One!
+      :setting_display: |
+            The game will be played with the following settings. Press Enter to continue
+                                    
+      :new_tournament: Welcome to a new game of Whatever One                             
