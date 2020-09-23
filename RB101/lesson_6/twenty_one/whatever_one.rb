@@ -47,13 +47,14 @@ def initialize_game
   game[:winner_cutoff] = CONFIG_OPT[:winner_cutoff]
   game[:card_values] = generate_card_value_map
   game[:max_points] = CONFIG_OPT[:max_points]
-  game[:min_points_dealer] = CONFIG_OPT[:min_points_dealer]
+  game[:min_points_dealer] = game[:max_points] - 4
   game[:round_no] = 1
   game[:quit_game] = false
   game[:score] = new_score
   game[:grand_winner] = nil
   game[:current_round_winner] = nil
-  game[:changable_setting] = [:max_points, :min_points_dealer, :winner_cutoff]
+  game[:changable_setting] = [:max_points, :winner_cutoff]
+  game[:display_setting] = [:max_points, :min_points_dealer, :winner_cutoff]
   game
 end
 
@@ -374,12 +375,13 @@ def update_game_settings!(game)
   game[:changable_setting].each do |setting|
     game[setting] = get_new_value(setting, game)
   end
+  game[:min_points_dealer] = game[:max_points] - 4
 end
 
 def show_game_settings(game)
   clear_screen
   prompt get_message(:setting_display)
-  game[:changable_setting].each do |setting|
+  game[:display_setting].each do |setting|
     prompt "Value for #{setting} is #{game[setting]}"
   end
   gets.chomp
