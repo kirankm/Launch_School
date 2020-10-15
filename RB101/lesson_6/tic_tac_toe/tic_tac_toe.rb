@@ -1,6 +1,4 @@
 require "yaml"
-require "pry"
-require "pry-byebug"
 
 # rubocop:disable Security/YAMLLoad
 ############################# Constants #################################
